@@ -18,9 +18,12 @@ body {
 .header {
   display: flex;
   align-items: center;
+  justify-content: center;
   font-size: 2rem;
   color: #ffffff;
   font-family: 'Lobster', cursive;
+  flex: 1;
+  text-align: center;
 }
 
 .burger-menu {
@@ -34,10 +37,14 @@ body {
 .button-group {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
+  flex: 1;
 }
 
 .search-bar {
-  margin-right: 2%;
+  display: flex;
+  justify-content: flex-end;
+  flex: 1;
 }
 
 .button {
@@ -94,34 +101,6 @@ body {
 
 .menu-item:hover {
   background: #787878;
-}
-
-.button {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  color: rgb(255, 255, 255);
-  text-decoration: none;
-  border-radius: 5px;
-  transition: transform 0.3s ease, color 0.7s ease;
-  margin-left: 0.5rem;
-}
-
-.button .fas {
-  margin-right: 0.5rem;
-}
-
-.button:hover {
-  transform: translateY(-5px);
-}
-
-.search-bar input {
-  padding: 1rem;
-  border-radius: 12px;
-  border: 1px solid #ced4da;
-  width: 150px;
-  font-size: 1rem;
 }
 
 .restaurant-list {
@@ -226,7 +205,6 @@ a.restaurant-container:active {
   font-weight: 650;
 }
 
-
 /* CSS for the carousel arrows */
 .carousel-button {
   position: absolute;
@@ -267,7 +245,7 @@ a.restaurant-container:active {
 /* add */
 .add-restaurant-page {
   max-width: 600px;
-  margin: 0 auto;
+  margin: 5% auto 0 auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -275,6 +253,7 @@ a.restaurant-container:active {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
 }
+
 
 .add-restaurant-page h2 {
   font-size: 24px;
@@ -475,7 +454,6 @@ tr:nth-child(even) {
 .save-button .fas {
   margin-right: 0.5rem;
 }
-
 
 /* עיצוב לטלפון */ 
 /* עיצוב לטלפון */ 

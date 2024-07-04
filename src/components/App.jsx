@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { Route, Routes, Link, useLocation } from "react-router-dom";
 import RestaurantList from "./RestaurantList";
 import RestaurantPage from "./RestaurantPage";
 import AddRestaurantPage from "./AddRestaurantPage";
@@ -8,6 +8,7 @@ import "../style.css";
 import restaurantsData from "../data/data";
 
 function App() {
+  const location = useLocation();
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [restaurants, setRestaurants] = useState([]);
@@ -56,64 +57,63 @@ function App() {
   };
 
   return (
-    <Router>
-      <div>
-        <div className="bar">
-          <div className="header">
-            Savory Street
-            <div className="burger-menu" onClick={toggleMenu}>
-              <i className={menuOpen ? "fas fa-times" : "fas fa-bars"}></i>
-            </div>
+    <div>
+      <div className="bar">
+        <div className="button-group">
+          <Link to="/" className="button home-button">
+            <i className="fas fa-home"></i> Home
+          </Link>
+          <Link to="/add-restaurant" className="button">
+            <i className="fas fa-plus"></i> Add Restaurant
+          </Link>
+          <Link to="/management" className="button">
+            <i className="fas fa-cogs"></i> Management
+          </Link>
+        </div>
+        <div className="header">
+          Savory Street
+          <div className="burger-menu" onClick={toggleMenu}>
+            <i className={menuOpen ? "fas fa-times" : "fas fa-bars"}></i>
           </div>
-          <div className="button-group">
-            <Link to="/" className="button home-button">
-              <i className="fas fa-home"></i> Home
-            </Link>
-            <Link to="/add-restaurant" className="button">
-              <i className="fas fa-plus"></i> Add Restaurant
-            </Link>
-            <Link to="/management" className="button">
-              <i className="fas fa-cogs"></i> Management
-            </Link>
-          </div>
-          <div className="search-bar">
-            <label htmlFor="search"></label>
+        </div>
+        <div className="search-bar">
+          {location.pathname !== "/add-restaurant" && location.pathname !== "/management" && !location.pathname.startsWith("/restaurant") && (
             <input
               type="text"
               id="search"
               value={searchTerm}
               onChange={handleSearchChange}
-              placeholder="Search ..."
+              placeholder="Search by city ..."
             />
-          </div>
-          <div className={`menu-options ${menuOpen ? "open" : ""}`}>
-            <Link to="/" className="menu-item" onClick={toggleMenu}>
-              <i className="fas fa-home"></i> Home
-            </Link>
-            <Link to="/add-restaurant" className="menu-item" onClick={toggleMenu}>
-              <i className="fas fa-plus"></i> Add Restaurant
-            </Link>
-            <Link to="/management" className="menu-item" onClick={toggleMenu}>
-              <i className="fas fa-cogs"></i> Management
-            </Link>
-          </div>
+          )}
         </div>
-
-        <Routes>
-          <Route path="/" element={
-            <RestaurantList
-              restaurants={[...restaurantsData, ...restaurants]}
-              selectedCategory={selectedCategory}
-              searchTerm={searchTerm}
-              handleCategoryChange={handleCategoryChange}
-            />
-          } />
-          <Route path="/restaurant/:id" element={<RestaurantPage restaurants={[...restaurantsData, ...restaurants]} />} />
-          <Route path="/add-restaurant" element={<AddRestaurantPage addRestaurant={addRestaurant} />} />
-          <Route path="/management/*" element={<RestaurantManagementPage restaurants={restaurants} deleteRestaurant={deleteRestaurant} editRestaurant={editRestaurant} />} />
-        </Routes>
+        <div className={`menu-options ${menuOpen ? "open" : ""}`}>
+          <Link to="/" className="menu-item" onClick={toggleMenu}>
+            <i className="fas fa-home"></i> Home
+          </Link>
+          <Link to="/add-restaurant" className="menu-item" onClick={toggleMenu}>
+            <i className="fas fa-plus"></i> Add Restaurant
+          </Link>
+          <Link to="/management" className="menu-item" onClick={toggleMenu}>
+            <i className="fas fa-cogs"></i> Management
+          </Link>
+        </div>
       </div>
-    </Router>
+
+      <Routes>
+        <Route path="/" element={
+          <RestaurantList
+            restaurants={[...restaurantsData, ...restaurants]}
+            selectedCategory={selectedCategory}
+            searchTerm={searchTerm}
+            handleCategoryChange={handleCategoryChange}
+          />
+        } />
+        <Route path="/restaurant/:id" element={<RestaurantPage restaurants={[...restaurantsData, ...restaurants]} />} />
+        <Route path="/add-restaurant" element={<AddRestaurantPage addRestaurant={addRestaurant} />} />
+        <Route path="/management/*" element={<RestaurantManagementPage restaurants={restaurants} deleteRestaurant={deleteRestaurant} editRestaurant={editRestaurant} />} />
+      </Routes>
+    </div>
   );
 }
 
